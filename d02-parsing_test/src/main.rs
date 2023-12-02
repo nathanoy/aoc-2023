@@ -123,15 +123,15 @@ fn integer(inp: Pty) -> RResult<Num> {
     map_res(digit1, str::parse)(inp)
 }
 
-fn single_color(inp: Pty) -> RResult<Color> {
-    let (inp, value) = integer(inp)?;
+fn single_color(inp0: Pty) -> RResult<Color> {
+    let (inp, value) = integer(inp0)?;
     let (inp, _) = multispace0(inp)?;
     let (inp, color_value) = alt((tag("red"), tag("green"), tag("blue")))(inp)?;
     let ret = match color_value {
         "red" => Color::Red(value),
         "green" => Color::Green(value),
         "blue" => Color::Blue(value),
-        _ => return fail(inp),
+        _ => return fail(inp0),
     };
     Ok((inp, ret))
 }
