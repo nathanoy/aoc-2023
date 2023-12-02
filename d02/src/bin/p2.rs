@@ -43,12 +43,8 @@ struct ColorFreq {
 }
 
 impl ColorFreq {
-    fn new() -> Self {
-        ColorFreq {
-            red: 0,
-            green: 0,
-            blue: 0,
-        }
+    fn new(red: i32, green: i32, blue: i32) -> Self {
+        ColorFreq { red, green, blue }
     }
 
     fn keep_biggest(&self, other: &Self) -> Self {
@@ -95,7 +91,7 @@ fn solution(inp: &str) -> i32 {
                             Color::from_str(&single_set_match["color"]).unwrap(),
                         )
                     })
-                    .fold(ColorFreq::new(), |acc, x| acc + x)
+                    .fold(ColorFreq::new(0, 0, 0), |acc, x| acc + x)
             })
             .collect::<Vec<_>>();
         (game, sets)
@@ -105,11 +101,12 @@ fn solution(inp: &str) -> i32 {
         .map(parse)
         .map(|(_, sets)| {
             sets.into_iter()
-                .fold(ColorFreq::new(), |acc: ColorFreq, set| {
+                // We start at 1 as its nutral in multiplication
+                .fold(ColorFreq::new(1, 1, 1), |acc: ColorFreq, set| {
                     acc.keep_biggest(&set)
                 })
         })
-        .map(|x| max(1, x.red) * max(1, x.green) * max(1, x.blue))
+        .map(|x| x.red * x.green * x.blue)
         .sum::<i32>()
 }
 
