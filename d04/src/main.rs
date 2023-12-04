@@ -36,7 +36,7 @@ fn solution_p2(inp: &str) -> i32 {
     let mut cards = inp
         .lines()
         .filter_map(|l| parse_line(l).ok())
-        .inspect(|(i, _)| assert_eq!(i, &""))
+        .inspect(|(i, _)| assert!(i.is_empty()))
         .map(|(_, c)| c)
         .map(
             |Card {
