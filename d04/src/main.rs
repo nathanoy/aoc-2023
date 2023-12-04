@@ -68,6 +68,7 @@ fn solution_p2(inp: &str) -> i32 {
         .map(|Card2 { copy_count, .. }| copy_count)
         .sum()
 }
+
 mod parsing {
     use nom::bytes::complete::tag;
     use nom::character::complete::{char, digit1, multispace0};
