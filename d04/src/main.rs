@@ -57,17 +57,11 @@ fn solution_p2(inp: &str) -> i32 {
             matching_count,
         } = cards[i];
 
-        // for c in &mut cards[(i + 1)..(i + 1 + matching_count)] {
-        //     c.copy_count += copy_count;
-        // }
-
-        cards
+        cards[i + 1..]
             .iter_mut()
-            .skip(i + 1)
             .take(matching_count)
             .for_each(|c| c.copy_count += copy_count)
     }
-
     cards
         .iter()
         .map(|Card2 { copy_count, .. }| copy_count)
